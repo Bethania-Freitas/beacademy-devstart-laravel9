@@ -33,10 +33,13 @@ class StoreUpdateUserFormRequest extends FormRequest
                 'email',
                 'unique:users,email,{$id},id',
             ],
-            'password' =>[
+            'password' => [
                 'required',
                 'min:4',
                 'max:12'
+            ],
+            'image' => [
+                'file', 
             ],
         ];
 
