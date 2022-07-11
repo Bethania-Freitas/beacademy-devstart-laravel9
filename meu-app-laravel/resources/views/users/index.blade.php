@@ -2,8 +2,9 @@
 @section('title', 'Listagem de Usuários')
 @section('body')
     <h1>Listagem de Usuários</h1>
-    <a href="{{ route('users.create') }}" class="btn btn-success">Novo Usuário</a>
 
+    <a class="btn btn-dark" href="{{ route('users.create') }}">Cadastrar Usuário</a>
+    
     <table class="table">
         <thead class="text-center">
             <tr>
@@ -18,7 +19,11 @@
         <tbody class="text-center">
             @foreach($users as $user)
                 <tr>
-                    <th><img src="{{ asset('storage/'.$user->image) }}" width="50px" height="50px" class="rounded-circle" alt=""></th>
+                    @if($user->image)
+                        <th><img src="{{ asset('storage/'.$user->image) }}" width="50px" height="50px" class="rounded-circle" alt=""></th>
+                    @else
+                        <th><img src="{{ asset('storage/profile/avatar.jpg') }}" width="50px" height="50px" class="rounded-circle" alt=""></th>
+                    @endif
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
@@ -28,4 +33,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="justify-content-center pagination">
+         {{ $users->links('pagination::bootstrap-4') }}
+    </div>
 @endsection

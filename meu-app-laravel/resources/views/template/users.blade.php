@@ -9,12 +9,17 @@
 
 </head>
 <body>
-    <div class="container-sm col-md-8"><br>
-        <nav class="navbar" style="background-color: #e3f2fd;">
-            <div class="container-fluid">
-                <a class=" container navbar-brand" href="{{ route('users.index') }}">Usuários</a>
-            </div>
-        </nav><br>
+    <div class="container w-50 p-3"><br>
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" >
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/users">Usuários</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/posts">Posts</a>
+                </li>
+            </ul>    
+        </nav>
         @yield('body')
     </div>
 </body>

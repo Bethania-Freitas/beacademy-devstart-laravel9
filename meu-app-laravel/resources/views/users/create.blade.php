@@ -31,6 +31,8 @@
             <input type="file" class="form-control form control-md" id="image" name="image">
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
+        
     </form>
-
+    <br>
+    <a class="btn btn-dark" href="{{ route('users.index') }}">Voltar</a>
 @endsection
