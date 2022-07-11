@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="container w-50 p-3"><br>
+    <div class="container w-75 p-3"><br>
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" >
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
