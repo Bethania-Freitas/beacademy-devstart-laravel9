@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateUserFormRequest;
+use App\Models\Team;
 
 
 class UserController extends Controller
@@ -15,21 +16,24 @@ class UserController extends Controller
     }
     
     
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(5);
+        $users = $this->model->getUsers(
+            $request->search ?? ''
+        );
 
         return view('users.index', compact('users'));
     }
 
     public function show($id)
     {
-        if(!$user = User::find($id))
+        if(!$user = User::findOrFail($id))
             return redirect()->route('users.index');
         
-        $title = 'Usuário ' . $user->name;
+        $team = Team::find($id);
+        $team->load('users');
 
-        return view('users.show', compact('user', 'title'));
+        return view('users.show', compact('user'));
     }
 
     public function create()

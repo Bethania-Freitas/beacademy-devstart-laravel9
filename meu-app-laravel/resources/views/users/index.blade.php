@@ -2,9 +2,23 @@
 @section('title', 'Listagem de Usuários')
 @section('body')
     <h1>Listagem de Usuários</h1>
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-sm mt-2 mb-5">
+                <a class="btn btn-outline-dark" href="{{ route('users.create') }}">Cadastrar Usuário</a>
+            </div>
+            <div class="col-sm mt-2 mb-5">
+                <form action="{{ route('users.index') }}" method="GET">
+                    <div class="input-group">
+                         <input type="search" class="form-control rounded" placeholder="Pesquisar: " name="search" />
+                         <button type="submit" class="btn btn-dark">Procurar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <a class="btn btn-dark" href="{{ route('users.create') }}">Cadastrar Usuário</a>
-    
     <table class="table">
         <thead class="text-center">
             <tr>
