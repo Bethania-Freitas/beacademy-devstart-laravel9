@@ -18,6 +18,7 @@ class UserController extends Controller
     
     public function index(Request $request)
     {
+        
         $users = $this->model->getUsers(
             $request->search ?? ''
         );
