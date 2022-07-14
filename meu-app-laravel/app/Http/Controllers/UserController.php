@@ -8,6 +8,7 @@ use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\Team;
 
 
+
 class UserController extends Controller
 {
     public function __construct(User $user)
@@ -89,6 +90,11 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index');
+    }
+
+    public function admin()
+    {
+        return view('admin.index');
     }
 }
 
