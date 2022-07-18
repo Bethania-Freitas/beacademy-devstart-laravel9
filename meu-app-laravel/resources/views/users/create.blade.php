@@ -30,6 +30,12 @@
             <label for="image" class="form-label">Selecione uma imagem</label>
             <input type="file" class="form-control form control-md" id="image" name="image">
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="admin" name="admin" value="1">
+            <label class="form-check-label" for="flexCheckDefault">
+                Administrador
+            </label>
+        </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
         
     </form>

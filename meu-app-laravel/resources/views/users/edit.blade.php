@@ -4,6 +4,7 @@
 
     <h1>Editar Usuário {{$user->name}}</h1>
 
+
     @if($errors->any())
         <div class="alert alert-danger" role="alert">
             @foreach($errors->all() as $error)
@@ -31,6 +32,13 @@
             <label for="image" class="form-label">Selecione uma imagem</label>
             <input type="file" class="form-control form control-md" id="image" name="image">
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="admin" name="admin" value="1">
+            <label class="form-check-label" for="admin">
+                Administrador
+            </label>
+        </div>
+
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </form>
     

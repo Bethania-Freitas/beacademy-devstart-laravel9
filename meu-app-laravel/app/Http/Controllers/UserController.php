@@ -29,13 +29,13 @@ class UserController extends Controller
 
     public function show($id)
     {
-        if(!$user = User::findOrFail($id))
-            return redirect()->route('users.index');
-        
-        $team = Team::find($id);
-        $team->load('users');
+        $user = User::find($id);
 
-        return view('users.show', compact('user'));
+        if($user){
+            return view('users.show', compact('user'));
+        }else{
+            throw new UserControllerException('Usuário não encontrado');
+        }
     }
 
     public function create()
@@ -54,10 +54,10 @@ class UserController extends Controller
             $data['image'] = $path;
         }
 
-
         $this->model->create($data);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('create', 'Usuario Cadastrado com Sucesso!');
+
     }
 
     public function edit($id)
@@ -77,17 +77,29 @@ class UserController extends Controller
         if($request->password)
             $data['password'] = bcrypt($request->password);
 
+        if ($request->image) {
+            if ($user->image && Storage::exists($user->image)) {
+                Storage::delete($user->image);
+            }
+    
+            $data['image'] = $request->image->store('users');
+        }
+    
         $user->update($data);
-
+    
+        $request->session()->flash('update', 'Usuario atualizado com Sucesso!');
+    
         return redirect()->route('users.index');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        if(!$user = $this->model->find($id))
-            return redirect()->route('users.index'); 
-        
+        if (!$user = $this->model->find($id))
+            return redirect()->route('users.index');
+
         $user->delete();
+
+        $request->session()->flash('destroy', 'Usuario excluido com Sucesso!');
 
         return redirect()->route('users.index');
     }
