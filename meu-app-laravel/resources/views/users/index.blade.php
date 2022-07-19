@@ -46,6 +46,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Postagens</th>
+                <th scope="col">Preço</th>
                 <th scope="col">Data Cadastro</th>
                 <th scope="col">Ações</th>
             </tr>
@@ -64,6 +65,7 @@
                     <td>
                         <a href="{{ route('posts.show', $user->id) }}"class="btn btn-outline-dark">Postagens - {{ $user->posts->count() }}</a>
                     </td>
+                    <td>{{ formatMoney( 5000.00 ) }}</td>
                     <td>{{ formatDateTime( $user->created_at ) }}</td>
                     <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-info text-white">Visualizar</a></td>
                 </tr>

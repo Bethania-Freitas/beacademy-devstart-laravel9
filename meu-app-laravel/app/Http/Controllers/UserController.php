@@ -2,35 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserControllerException;
+use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     public function __construct(User $user)
     {
         $this->model = $user;
     }
-    
-    
+
     public function index(Request $request)
     {
-        
         $users = $this->model->getUsers(
-            $request->search ?? ''
-        );
+                    $request->search ?? ''
+                );
 
         return view('users.index', compact('users'));
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+
+        $user = User::find($id);
 
         if($user){
             return view('users.show', compact('user'));
         }else{
             throw new UserControllerException('Usuário não encontrado');
         }
+
     }
 
     public function create()
@@ -43,13 +47,13 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
-        if($request->image){
-            $file = $request['image'];
-            $path = $file->store('profile', 'public');
-            $data['image'] = $path;
+        if ($request->image) {
+            $data['image'] = $request->image->store('users');
         }
 
         $this->model->create($data);
+
+        //$request->session()->flash('create', 'Usuario Cadastrado com Sucesso!');
 
         return redirect()->route('users.index')->with('create', 'Usuario Cadastrado com Sucesso!');
 
@@ -57,33 +61,33 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if(!$user = $this->model->find($id))
-            return redirect()->route('users.index'); 
+        if (!$user = $this->model->find($id))
+            return redirect()->route('users.index');
 
-        return view('users.edit', compact('user')); 
+        return view('users.edit', compact('user'));
     }
 
     public function update(StoreUpdateUserFormRequest $request, $id)
     {
-        if(!$user = $this->model->find($id))
-            return redirect()->route('users.index'); 
-        
+        if (!$user = $this->model->find($id))
+            return redirect()->route('users.index');
+
         $data = $request->only('name', 'email');
-        if($request->password)
+        if ($request->password)
             $data['password'] = bcrypt($request->password);
 
         if ($request->image) {
             if ($user->image && Storage::exists($user->image)) {
                 Storage::delete($user->image);
             }
-    
+
             $data['image'] = $request->image->store('users');
         }
-    
+
         $user->update($data);
-    
+
         $request->session()->flash('update', 'Usuario atualizado com Sucesso!');
-    
+
         return redirect()->route('users.index');
     }
 
@@ -99,9 +103,9 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+
     public function admin()
     {
         return view('admin.index');
     }
 }
-
