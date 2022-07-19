@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
     public function index()
     {
-        $users = [
-            'nome' => [ 
-                'Bethânia Freitas',
-                'José Lira'
-            ],
-        ];
+        $users = User::all();
 
         dd($users);
     }
-    public function show($id)
-    {
-        dd('O ID do Usuario é ' . $id);
-    }
+
 }
 
