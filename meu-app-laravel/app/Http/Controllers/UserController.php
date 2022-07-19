@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+<<<<<<< HEAD
+=======
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\Team;
 
 
+>>>>>>> d71e7b2b65dda5e417bff007fc4a3edbb4191844
 
 class UserController extends Controller
 {
     public function __construct(User $user)
     {
+<<<<<<< HEAD
+        $users = User::all();
+
+        dd($users);
+    }
+
+=======
         $this->model = $user;
     }
     
@@ -108,5 +118,6 @@ class UserController extends Controller
     {
         return view('admin.index');
     }
+>>>>>>> d71e7b2b65dda5e417bff007fc4a3edbb4191844
 }
 
