@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         if($user){
             return view('users.show', compact('user'));
